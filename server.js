@@ -6,7 +6,7 @@ const crypto = require("crypto");
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
-app.use(express.static("public"));
+app.use(express.static("."));
 
 const rooms = new Map();
 const makeId = () => crypto.randomBytes(3).toString("hex").toUpperCase();
