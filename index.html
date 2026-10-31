@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Royal Domino Club</title><link rel="stylesheet" href="style.css"></head>
+<body><main class="shell">
+<header><div class="brand"><span class="crown">♛</span><div><small>ROYAL GAME ROOM</small><h1>DOMINÓ <i>CLUB</i></h1></div></div><div class="online"><span></span> MESA PRIVADA</div></header>
+<section id="lobby" class="panel lobby">
+<div class="eyebrow">A MESA ESTÁ PRONTA</div><h2>Uma noite de estratégia<br><em>e boas jogadas.</em></h2><p class="muted">Reúna seus amigos para uma partida clássica.</p>
+<div class="formgrid"><label>SEU NOME<input id="name" maxlength="18" placeholder="Como quer ser chamado?"></label>
+<label>FORMATO<select id="mode"><option value="individual">Individual — cada um por si</option><option value="duplas">Duplas — parceiros frente a frente</option></select></label>
+<label>QUANTIDADE DE PARTIDAS<select id="target"><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></label>
+<label>COMPLETAR A MESA<select id="fill"><option value="no">Sem bots — jogadores reais</option><option value="yes">Permitir bots (em breve)</option></select></label></div>
+<div class="actions"><button id="create" class="gold">CRIAR SALA PRIVADA</button><div class="join"><input id="codeInput" placeholder="CÓDIGO DA SALA" maxlength="6"><button id="join" class="outline">ENTRAR</button></div></div>
+<p id="error" class="error"></p><p class="fine">Até 4 jogadores · Salas por código · Chat ao vivo</p></section>
+<section id="game" class="hidden">
+<div class="gamebar"><div><small>SALA PRIVADA</small><strong id="roomCode">------</strong></div><div class="roundinfo">PARTIDA <b id="round">0</b> / <b id="targetView">4</b></div><button id="copy" class="outline small">COPIAR CÓDIGO</button></div>
+<div class="layout"><div class="tablewrap"><div class="table">
+<div id="seatTop" class="seat top"></div><div id="seatLeft" class="seat left"></div><div id="seatRight" class="seat right"></div><div id="seatBottom" class="seat bottom"></div>
+<div class="chain" id="chain"><div class="empty">Aguardando a primeira pedra...</div></div><div class="turn" id="turn">Aguardando jogadores</div></div>
+<div class="scoreline" id="score"></div><div class="handarea"><div class="handtitle">SUAS PEDRAS <span id="handCount"></span></div><div id="hand" class="hand"></div><div class="playactions"><button id="draw" class="outline">COMPRAR PEDRA</button><button id="pass" class="outline">PASSAR</button><button id="rematch" class="gold hidden">REvanche / PRÓXIMA</button></div></div></div>
+<aside class="chatbox"><div class="chathead">✦ CHAT DA MESA <span>AO VIVO</span></div><div id="messages" class="messages"><p class="system">As mensagens da mesa aparecem aqui.</p></div><form id="chatForm"><input id="chatInput" maxlength="240" placeholder="Escreva uma mensagem..."><button>➤</button></form></aside></div>
+</section><footer>ROYAL DOMINO CLUB <span>♛</span> JOGUE COM CLASSE</footer></main><script src="/socket.io/socket.io.js"></script><script src="client.js"></script></body></html>
