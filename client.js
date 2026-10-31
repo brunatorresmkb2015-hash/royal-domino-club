@@ -20,7 +20,7 @@ function render(){
  $("rematch").textContent=roomState.status==="seriesOver"?"NOVA SÉRIE":"PRÓXIMA PARTIDA";
  $("draw").disabled=roomState.status!=="playing"||roomState.current!==mySeat||roomState.boneyard===0;
  $("pass").disabled=roomState.status!=="playing"||roomState.current!==mySeat;
- if(roomState.status==="lobby"&&roomState.players.length>=2&&mySeat===0&&!$("start")){const b=document.createElement("button");b.id="start";b.className="gold";b.textContent="INICIAR PARTIDA";b.onclick=()=>socket.emit("startGame");$("game").querySelector(".gamebar").append(b);}
+ if(roomState.status==="lobby"&&roomState.players.length>=2&&roomState.players[0]?.id===socket.id&&!$("start")){const b=document.createElement("button");b.id="start";b.className="gold";b.textContent="INICIAR PARTIDA";b.onclick=()=>socket.emit("startGame");$("game").querySelector(".gamebar").append(b);}
 }
 function tileHTML(t,vertical=true){return `<div class="tile ${vertical?"vertical":""}">${halfHTML(t.a)}${halfHTML(t.b)}</div>`}
 function halfHTML(n){const patterns={0:[],1:[4],2:[1,6],3:[1,4,6],4:[1,3,5,7],5:[1,3,4,5,7],6:[1,2,3,5,6,7]};return `<div class="half">${Array.from({length:6},(_,i)=>`<i class="pip" style="visibility:${patterns[n].includes(i+1)?"visible":"hidden"};--pip:${["#b73535","#2d8b57","#315c9c","#c08c27"][n%4]}"></i>`).join("")}</div>`}
