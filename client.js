@@ -25,7 +25,16 @@ function render(){
 function tileHTML(t,vertical=true){return `<div class="tile ${vertical?"vertical":""}">${halfHTML(t.a)}${halfHTML(t.b)}</div>`}
 function halfHTML(n){const patterns={0:[],1:[4],2:[1,6],3:[1,4,6],4:[1,3,5,7],5:[1,3,4,5,7],6:[1,2,3,5,6,7]};return `<div class="half">${Array.from({length:6},(_,i)=>`<i class="pip" style="visibility:${patterns[n].includes(i+1)?"visible":"hidden"};--pip:${["#b73535","#2d8b57","#315c9c","#c08c27"][n%4]}"></i>`).join("")}</div>`}
 function renderHand(){$("hand").innerHTML=myHand.map(t=>`<div data-id="${t.id}" class="tile ${selected===t.id?"selected":""}">${halfHTML(t.a)}${halfHTML(t.b)}</div>`).join("");$("handCount").textContent=`(${myHand.length})`;document.querySelectorAll("#hand .tile").forEach(el=>el.onclick=()=>{selected=el.dataset.id;renderHand();if(roomState?.chain.length===0)socket.emit("playTile",{tileId:selected,side:"right"});else showPlacement();});}
-function showPlacement(){if(!$("placement")){const d=document.createElement("span");d.id="placement";d.innerHTML=' <button class="outline" id="leftPlay">PONTA ESQUERDA</button> <button class="outline" id="rightPlay">PONTA DIREITA</button>';$("handarea").append(d);$("leftPlay").onclick=()=>play("left");$("rightPlay").onclick=()=>play("right");}}
+function showPlacement(){
+  if(!$("placement")){
+    const d=document.createElement("span");
+    d.id="placement";
+    d.innerHTML=' <button class="outline" id="leftPlay">PONTA ESQUERDA</button> <button class="outline" id="rightPlay">PONTA DIREITA</button>';
+    document.querySelector(".handarea").append(d);
+    $("leftPlay").onclick=()=>play("left");
+    $("rightPlay").onclick=()=>play("right");
+  }
+}{if(!$("placement")){const d=document.createElement("span");d.id="placement";d.innerHTML=' <button class="outline" id="leftPlay">PONTA ESQUERDA</button> <button class="outline" id="rightPlay">PONTA DIREITA</button>';$("handarea").append(d);$("leftPlay").onclick=()=>play("left");$("rightPlay").onclick=()=>play("right");}}
 function play(side){if(selected)socket.emit("playTile",{tileId:selected,side});selected=null;$("placement")?.remove();}
 $("draw").onclick=()=>socket.emit("draw");$("pass").onclick=()=>socket.emit("pass");
 $("rematch").onclick=()=>roomState.status==="seriesOver"?socket.emit("newSeries"):socket.emit("rematch");
